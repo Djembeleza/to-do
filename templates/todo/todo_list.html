@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+To-Do List
+{% endblock title %}
+
+{% block content %}
+<h2 class="heading">To-Do List</h2>
+
+
+<ul class="list-container">
+    {% for chore in chores  %}
+    <li class="list-item">
+        <a href="{% url 'todosApp:delete-to-do' chore.pk %}">Delete To-Do</a>
+        <a href="{% url 'todosApp:update-to-do' chore.pk %}">Update T-Do</a>
+        <h3 class="todo-title">{{chore.title}}</h3>
+        <p><b>Due Date: </b><time>{{chore.todoDate|date:"j N P"}}</time></p>
+        <p class="notes">{{chore.todoNote}}</p>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

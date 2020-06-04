@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+Add To-Do
+{% endblock title %}
+
+
+{% block content %}
+<form>
+ {% include 'base_form.html' %}
+ <input type='submit' value="Add To-Do" class='btn btn-submit'>
+</form>
+{% endblock content %}
