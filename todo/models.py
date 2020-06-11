@@ -5,17 +5,18 @@ from django.contrib.auth.models import (AbstractBaseUser,
 from django.core.mail import send_mail
 from django.conf import settings
 from .managers import MyUserManager
+from django.core.validators import validate_image_file_extension
 # Create your models here.
 
 
 class ToDo(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    title = models.CharField('To Do Title', max_length=50,
-                             blank=False)
-    todoDate = models.DateTimeField('Due Date', blank=False)
+    title = models.CharField('To Do Title', max_length=50, blank=False)
+    is_completed = models.BooleanField(default=False)
+    todoDate = models.DateField('Due Date', blank=False)
     todoNote = models.TextField('Note')
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+                             on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -26,6 +27,7 @@ class ToDo(models.Model):
     class Meta:
         verbose_name = 'todo'
         verbose_name_plural = 'todos'
+        get_latest_by = '-todoDate'
 
 
 class MyUser(AbstractBaseUser, PermissionsMixin):
@@ -37,7 +39,8 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True,
+                               blank=True, validators=[validate_image_file_extension])
 
     objects = MyUserManager()
 

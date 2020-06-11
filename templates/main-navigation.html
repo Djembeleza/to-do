@@ -1,11 +1,9 @@
 <nav class="main-nav">
-    <a href='{% url 'todosApp:index' %}'><h1>My To-Do List<h1></a>
-    {% comment %} <ul class="nav-items">
-        <li class="nav-item"><a href="#">About</a></li>
-        <li class="nav-item"><a href="#">Contact Us</a></li>
-        <!-- <li><a href="#"></a></li> -->
-    </ul> {% endcomment %}
+    <h1 class='heading'><a href='{% url 'todosApp:index' %}'>My To-Do List</a></h1>
 
-    {% if request.path == '/' %}
-    <a href='{% url 'todosApp:add-to-do' %}'>Add To-Do</a>{% endif %}
+    <div class="add-button">
+        {% if request.path == '/' %}
+        <a href='{% url 'todosApp:add-to-do' %}'><span class="fas fa-plus-square"></span></a>{% endif %}
+        <span class="tooltiptext">Add To-Do</span>
+    </div>
 </nav>

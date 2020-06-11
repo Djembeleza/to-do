@@ -4,18 +4,56 @@ To-Do List
 {% endblock title %}
 
 {% block content %}
-<h2 class="heading">To-Do List</h2>
 
 
 <ul class="list-container">
     {% for chore in chores  %}
+
+    {% if chore.is_completed %}
     <li class="list-item">
-        <a href="{% url 'todosApp:delete-to-do' chore.pk %}">Delete To-Do</a>
-        <a href="{% url 'todosApp:update-to-do' chore.pk %}">Update T-Do</a>
-        <h3 class="todo-title">{{chore.title}}</h3>
-        <p><b>Due Date: </b><time>{{chore.todoDate|date:"j N P"}}</time></p>
-        <p class="notes">{{chore.todoNote}}</p>
+        {% comment %} <div class='btn-div'>
+        <div class='delete-button'><a href="{% url 'todosApp:delete-to-do' chore.pk %}"><i class='fas fa-trash-alt'></i></a>
+        <span class="tooltiptext">Delete To-Do</span>
+        </div>
+
+        <div class='update-button'><a href="{% url 'todosApp:update-to-do' chore.pk %}"><i class='fas fa-edit'></i></a>
+        <span class="tooltiptext">Update To-Do</span>
+        </div>
+
+        <div class='complete-button'><a href="{% url 'todosApp:to-do-completed' chore.pk %}"><i class='fas fa-edit'></i></a>
+        <span class="tooltiptext">Complete To-Do</span>
+        </div>
+        </div> {% endcomment %}
+
+        <h3 class="heading completed">{{chore.title}}</h3>
+        
+        <p class="notes completed">{{chore.todoNote}}</p>
+        <p><b>Due Date: </b><time>{{chore.todoDate|date}}</time></p>
     </li>
+
+    {% else %}
+    <li class="list-item">
+        <div class='btn-div'>
+        <div class='delete-button'><a href="{% url 'todosApp:delete-to-do' chore.pk %}"><i class='fas fa-trash-alt'></i></a>
+        <span class="tooltiptext">Delete To-Do</span>
+        </div>
+
+        <div class='update-button'><a href="{% url 'todosApp:update-to-do' chore.pk %}"><i class='fas fa-edit'></i></a>
+        <span class="tooltiptext">Update To-Do</span>
+        </div>
+
+        <div class='complete-button'><a href="{% url 'todosApp:to-do-completed' chore.pk %}"><i class='far fa-check-circle'></i></a>
+        <span class="tooltiptext">Complete To-Do</span>
+        </div>
+        </div>
+
+        <h3 class="heading">{{chore.title}}</h3>
+        
+        <p class="notes">{{chore.todoNote}}</p>
+        <p><b>Due Date: </b><time>{{chore.todoDate|date}}</time></p>
+    </li>
+    {% endif %}
+    
     {% endfor %}
 </ul>
 

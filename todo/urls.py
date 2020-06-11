@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 from .views import (TodoListView, TodoCreateView,
-                    TodoDeleteView, TodoUpdateView)
+                    TodoDeleteView, TodoUpdateView, CompleteToDo)
 
 app_name = 'todosApp'
 
@@ -25,5 +25,7 @@ urlpatterns = [
     path('<pk>/delete-to-do/', TodoDeleteView.as_view(), name='delete-to-do'),
 
     path('<pk>/update-to-do/', TodoUpdateView.as_view(), name='update-to-do'),
+
+    path('<pk>/completed-task/', CompleteToDo.as_view(), name='to-do-completed'),
 
 ]
