@@ -27,7 +27,7 @@ class ToDo(models.Model):
     class Meta:
         verbose_name = 'todo'
         verbose_name_plural = 'todos'
-        get_latest_by = '-todoDate'
+        ordering = ['todoDate']
 
 
 class MyUser(AbstractBaseUser, PermissionsMixin):

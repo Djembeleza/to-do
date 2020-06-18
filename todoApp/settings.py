@@ -135,3 +135,8 @@ DATE_INPUT_FORMATS = [
     '%Y/%m/%d',
     '%d/%m/%Y'
 ]
+
+
+# AUTH REDIRECT
+LOGIN_REDIRECT_URL = 'todosApp:index'
+LOGIN_URL = 'todosApp:login'

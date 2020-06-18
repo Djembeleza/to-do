@@ -6,9 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
-    <title>{% block title %}To-Do{% endblock title %}</title>
+    <title>User Logged Out</title>
     <script src="https://kit.fontawesome.com/310156fd9b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 </head>
 
@@ -21,23 +20,12 @@
                 {% endfor %}
         </ul>
         {% endif %}
-
-
-        {% include 'main-navigation.html' %}
-
-        {% block content %}
-        {% endblock content %}
+        <a href='{% url 'todosApp:login' %}'>Login</a>
     </div>
+    
+    
 </body>
 
 <!-- Scripts Start Here -->
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $('#id_todoDate').datepicker({minDate: 0});
-    });//End Ready
-</script>
 
 </html>

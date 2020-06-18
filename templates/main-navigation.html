@@ -1,9 +1,30 @@
 <nav class="main-nav">
     <h1 class='heading'><a href='{% url 'todosApp:index' %}'>My To-Do List</a></h1>
 
+    <div class='nav-buttons'>
     <div class="add-button">
         {% if request.path == '/' %}
         <a href='{% url 'todosApp:add-to-do' %}'><span class="fas fa-plus-square"></span></a>{% endif %}
         <span class="tooltiptext">Add To-Do</span>
     </div>
+
+    {% if user.is_authenticated %}
+    <small>Logged in as {{user.email}}</small>
+    <div class="register-button">
+        <a href='{% url 'todosApp:logout' %}'><i class="fas fa-sign-out-alt"></i></a>
+        <span class="tooltiptext">Logout</span>
+    </div>
+    {% else %}
+    <div class="register-button">
+        <a href='{% url 'todosApp:user-rgstr' %}'><i class="fas fa-user-plus"></i></a>
+        <span class="tooltiptext">Register</span>
+    </div>
+
+    <div class="register-button">
+        <a href='{% url 'todosApp:login' %}'><i class="fas fa-sign-in-alt"></i></a>
+        <span class="tooltiptext">Sign-In</span>
+    </div>
+    {% endif %}
+    </div>
+
 </nav>
