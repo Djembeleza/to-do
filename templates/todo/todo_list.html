@@ -5,7 +5,7 @@ To-Do List
 
 {% block content %}
 
-
+{% if chores %}
 <ul class="list-container">
     {% for chore in chores  %}
 
@@ -13,9 +13,10 @@ To-Do List
     <li class="list-item">
         <div class='btn-div'>
 
-        <div class='complete-button'><a href="{% url 'todosApp:to-do-completed' chore.pk %}"><i class="fas fa-undo-alt"></i></a>
-        <span class="tooltiptext">Incomplete To-Do</span>
-        </div>
+            <div class='complete-button'><a href="{% url 'todosApp:to-do-completed' chore.pk %}"><i
+                        class="fas fa-undo-alt"></i></a>
+                <span class="tooltiptext">Incomplete To-Do</span>
+            </div>
         </div>
 
         <h3 class="heading completed">{{chore.title}}</h3>
@@ -26,27 +27,33 @@ To-Do List
     {% else %}
     <li class="list-item">
         <div class='btn-div'>
-        <div class='delete-button'><a href="{% url 'todosApp:delete-to-do' chore.pk %}"><i class='fas fa-trash-alt'></i></a>
-        <span class="tooltiptext">Delete To-Do</span>
-        </div>
+            <div class='delete-button'><a href="{% url 'todosApp:delete-to-do' chore.pk %}"><i
+                        class='fas fa-trash-alt'></i></a>
+                <span class="tooltiptext">Delete To-Do</span>
+            </div>
 
-        <div class='update-button'><a href="{% url 'todosApp:update-to-do' chore.pk %}"><i class='fas fa-edit'></i></a>
-        <span class="tooltiptext">Update To-Do</span>
-        </div>
+            <div class='update-button'><a href="{% url 'todosApp:update-to-do' chore.pk %}"><i
+                        class='fas fa-edit'></i></a>
+                <span class="tooltiptext">Update To-Do</span>
+            </div>
 
-        <div class='complete-button'><a href="{% url 'todosApp:to-do-completed' chore.pk %}"><i class='far fa-check-circle'></i></a>
-        <span class="tooltiptext">Complete To-Do</span>
-        </div>
+            <div class='complete-button'><a href="{% url 'todosApp:to-do-completed' chore.pk %}"><i
+                        class='far fa-check-circle'></i></a>
+                <span class="tooltiptext">Complete To-Do</span>
+            </div>
         </div>
 
         <h3 class="heading">{{chore.title}}</h3>
-        
+
         <p class="notes">{{chore.todoNote}}</p>
         <p><b>Due Date: </b><time>{{chore.todoDate|date}}</time></p>
     </li>
     {% endif %}
-    
+
     {% endfor %}
 </ul>
+{% else %}
 
+<h4 style="font-size: 3rem; text-align:center">Nothing to do. You are free!</h4>
+{% endif %}
 {% endblock content %}

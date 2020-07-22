@@ -1,5 +1,18 @@
 from django import forms
-from .models import (MyUser)
+from .models import (MyUser,
+                     ToDo)
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class ToDoForm(forms.ModelForm):
+
+    class Meta:
+        model = ToDo
+        fields = ('title', 'todoDate', 'todoNote')
+        widgets = {'todoDate': DateInput()}
 
 
 class MyUserForm(forms.ModelForm):

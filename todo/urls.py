@@ -17,12 +17,13 @@ from django.urls import path
 from .views import (TodoListView, TodoCreateView,
                     TodoDeleteView, TodoUpdateView, CompleteToDo, UserFormView,
                     UserLoginView,
-                    UserLogoutView)
+                    UserLogoutView, TodayTasksView, WeeklyTasks)
 
 app_name = 'todosApp'
 
 urlpatterns = [
     path('', TodoListView.as_view(), name='index'),
+    path('today/', TodayTasksView.as_view(), name='today-tasks'),
     path('add-to-do/', TodoCreateView.as_view(), name='add-to-do'),
     path('<pk>/delete-to-do/', TodoDeleteView.as_view(), name='delete-to-do'),
 
@@ -35,4 +36,8 @@ urlpatterns = [
     path('login/', UserLoginView.as_view(), name='login'),
 
     path('logout/', UserLogoutView.as_view(), name='logout'),
+
+    # path('<int:year>/week/<int:week>/',
+    #      WeeklyTasks.as_view(),
+    #      name="weekly_tasks"),
 ]

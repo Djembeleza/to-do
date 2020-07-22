@@ -8,6 +8,8 @@
         <span class="tooltiptext">Add To-Do</span>
     </div>
 
+    <div class='auth-div'>
+    
     {% if user.is_authenticated %}
     <small>Logged in as {{user.email}}</small>
     <div class="register-button">
@@ -25,6 +27,7 @@
         <span class="tooltiptext">Sign-In</span>
     </div>
     {% endif %}
+    </div>
     </div>
 
 </nav>

@@ -1,15 +1,22 @@
 from django.views.generic import (ListView,
-                                  CreateView, UpdateView, DeleteView, RedirectView,
+                                  CreateView,
+                                  UpdateView,
+                                  DeleteView,
+                                  RedirectView,
                                   View)
+from django.views.generic.dates import (TodayArchiveView,
+                                        WeekArchiveView)
 from django.contrib.auth.views import (LogoutView,
                                        LoginView)
 from .models import ToDo
-from .forms import (MyUserForm)
+from .forms import (MyUserForm,
+                    ToDoForm)
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.messages.views import (SuccessMessageMixin)
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import (LoginRequiredMixin)
 # Create your views here.
 
 
@@ -26,10 +33,21 @@ class CompleteToDo(RedirectView):
         return reverse_lazy('todosApp:index')
 
 
-class TodoCreateView(SuccessMessageMixin, CreateView):
+class TodayTasksView(LoginRequiredMixin, TodayArchiveView):
+    # queryset = ToDo.objects.all()
+    date_field = 'todoDate'
+    template_name = 'todo/today.html'
+
+    def get_queryset(self):
+        return ToDo.objects.filter(user=self.request.user)
+
+
+class TodoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = ToDo
     template_name = "create_todo.html"
-    fields = ['title', 'todoDate', 'todoNote']
+    form_class = ToDoForm
+
+    # fields = ['title', 'todoDate', 'todoNote']
     success_url = reverse_lazy('todosApp:index')
     success_message = " %(title)s  was added to your tasks"
 
@@ -51,10 +69,13 @@ class TodoUpdateView(UpdateView):
     fields = ['title', 'todoDate', 'todoNote']
 
 
-class TodoListView(ListView):
-    model = ToDo
+class TodoListView(LoginRequiredMixin, ListView):
+    # model = ToDo
     template_name = "todo_list.html"
     context_object_name = 'chores'
+
+    def get_queryset(self):
+        return ToDo.objects.filter(user=self.request.user)
 
 
 class UserLogoutView(LogoutView):
@@ -62,8 +83,9 @@ class UserLogoutView(LogoutView):
     next_page = reverse_lazy('todosApp:login')
 
 
-class UserLoginView(LoginView):
+class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'login.html'
+    success_message = "Successfully signed in as %(username)s"
 
 
 class UserFormView(View):
@@ -96,3 +118,13 @@ class UserFormView(View):
                     return redirect('todosApp:index')
 
         return render(request, self.template_name, {'form': form})
+
+
+class WeeklyTasks(WeekArchiveView):
+    template_name = 'weekly_list.html'
+    date_field = 'todoDate'
+    week_format = '%W'
+    allow_future = True
+
+    def get_queryset(self):
+        return ToDo.objects.filter(user=self.request.user)

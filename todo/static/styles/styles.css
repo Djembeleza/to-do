@@ -58,6 +58,20 @@ h1 {
     width: 100%;
     text-align: center;
 }
+/* Style the auth div */
+.auth-div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 0.8rem;
+    font-size: 2rem;
+}
+
+.auth-div small {
+    font-size:0.8rem;
+    text-align: left;
+}
 /* Style the update, delete and add buttons */
 .add-button {
     position: absolute;
@@ -70,7 +84,7 @@ h1 {
       font-size: 2.5rem;
   }
 
-  .delete-button, .update-button, .complete-button {
+  .delete-button, .update-button, .complete-button,.register-button {
       display: inline-block;
       position: relative;
   }
@@ -98,7 +112,7 @@ h1 {
   }
 
   .register-button .tooltiptext {
-      left: 2rem;
+      position: relative;
   }
 
   .add-button:hover .tooltiptext,.delete-button:hover .tooltiptext,.update-button:hover .tooltiptext, .complete-button:hover .tooltiptext, .register-button:hover .tooltiptext {
@@ -107,7 +121,8 @@ h1 {
 
   .list-item {
       position: relative;
-      border-bottom: 2px outset var(--first-color);
+      border-bottom: 0.5rem ridge var(--first-color);
+      min-height: 9rem;
   }
 
   
@@ -139,9 +154,10 @@ h1 {
       margin-bottom: 0.2rem;
   }
 
-  .list-item {
-      height: 20vh;
-  }
+.list-item .notes {
+    padding-right: 4rem;
+    margin-bottom: 1rem;
+}
 
   /* Style Completed Items */
   .completed {
